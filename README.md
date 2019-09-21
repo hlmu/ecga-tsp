@@ -1,6 +1,10 @@
 # ecga-tsp
 Evolutionary Computation Group Assignment: The Traveling Salesperson Problem - Implementation
 
+### Parser.py
+Parse data in the data/ directory.
+Given the filename of a tsp file, return a dictionary containing the data given in the file.
+
 ### TSPProblem.py
 Write a class TSPProblem which represents the TSP problem. Your class should enable the construction 
 of TSP problems from the files of the symmetric traveling salesperson problem of the TSPlib, which is available online:
