@@ -17,13 +17,14 @@ City = complex # create alias for the complex
 
 class TSPProblem:
 
-    def __init__(self, filename):
+    def __init__(self, filename, alg):
         """
         build up city coordinates.
         :param filename: tsp file name
         """
         self.filename = filename
         self.citylist = []
+        self.alg = alg
         __raw_data = Parser(filename).data
         # self.citylist = [<city_index>] = <coordinate of city>
         for item in __raw_data['map']:
@@ -51,34 +52,42 @@ class TSPProblem:
 
 
     #繁衍
-    def multiply_of_each_generation(self, generation, population, elite_size, mutation_rate):
+    def multiply_of_each_generation(self, generation, population, elite_size, mutation_rate, checkpoints=None):
         # population = multiply(population, elite_size, mutation_rate)
         population = population.multiply(elite_size, mutation_rate)
         min_dis = population.min_dis()
         print('Gen:', generation,'|| best fit:', min_dis)
         #注释下一行可以只绘制最终结果的图像
         # plotting(population[0], best, 0.01)
+
+        if checkpoints and generation in checkpoints:
+            #最后一张绘图停留两秒后消失
+            best = population.get_best()
+            best.plotting(2)
+            print("Gen " + str(generation) + " Distance = %.3f" % min_dis)
+            type = os.path.splitext(os.path.basename(self.filename))[0]
+            best.output_city_path(type, self.alg, generation)
         return population
 
-    #繁衍最后一代
-    def multiply_of_last_generation(self, generation, population, elite_size, mutation_rate):
-        # population = multiply(population, elite_size, mutation_rate)
-        population = population.multiply(elite_size, mutation_rate)
-        min_dis = population.min_dis()
-        print('Gen:', generation,'|| best fit:', min_dis)
-        #最后一张绘图停留两秒后消失
-        best = population.get_best()
-        best.plotting(2)
-        print("Final Distance = %.3f" % min_dis)
-        type = os.path.splitext(os.path.basename(self.filename))[0]
-        best.output_city_path(type)
+    # #繁衍最后一代
+    # def multiply_of_last_generation(self, generation, population, elite_size, mutation_rate, checkpoints=None):
+    #     # population = multiply(population, elite_size, mutation_rate)
+    #     population = population.multiply(elite_size, mutation_rate)
+    #     min_dis = population.min_dis()
+    #     print('Gen:', generation,'|| best fit:', min_dis)
+    #     #最后一张绘图停留两秒后消失
+    #     best = population.get_best()
+    #     best.plotting(2)
+    #     print("Final Distance = %.3f" % min_dis)
+    #     type = os.path.splitext(os.path.basename(self.filename))[0]
+    #     best.output_city_path(type)
 
-    def GA(self, pop_size, elite_size, mutation_rate, generation):
+    def GA(self, pop_size, elite_size, mutation_rate, generation, checkpoints=None):
         population = self.initial_population(pop_size, self.citylist)
-        for gen in range(1, generation):
-            population = self.multiply_of_each_generation(gen, population, elite_size, mutation_rate)
-        self.multiply_of_last_generation(generation, population, elite_size, mutation_rate)
+        for gen in range(1, generation+1):
+            population = self.multiply_of_each_generation(gen, population, elite_size, mutation_rate, checkpoints)
+        # self.multiply_of_last_generation(generation, population, elite_size, mutation_rate)
 
 if __name__ == '__main__':
-    prob = TSPProblem('data/eil51.tsp')
-    prob.GA(POP_SIZE, ELITE_SIZE, MUTATE_RATE, N_GENERATIONS)
+    prob = TSPProblem('data/eil51.tsp', 'alg1')
+    prob.GA(POP_SIZE, ELITE_SIZE, MUTATE_RATE, N_GENERATIONS, CHECKPOINTS)

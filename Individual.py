@@ -107,8 +107,8 @@ class Individual:
         plt.pause(show_time)
 
     #输出结果到文件中
-    def output_city_path(self, type):
-        output = open('results/result-' + type + '.txt' ,'w')
+    def output_city_path(self, type, alg, gen):
+        output = open('results/' + type + '-' + alg + '-' + str(gen) + '.txt' ,'w')
         output.write('----------Distance----------\n\n')
         output.write(str(self.total_distance()) + '\n\n')
         output.write('---------Circle Path--------\n\n')
