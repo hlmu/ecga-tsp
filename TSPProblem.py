@@ -26,9 +26,9 @@ class TSPProblem:
         self.citylist = []
         self.alg = alg
         __raw_data = Parser(filename).data
-        # self.citylist = [<city_index>] = <coordinate of city>
+        # self.citylist  = <x_coordinate, y_coordinate, city_index>
         for item in __raw_data['map']:
-            self.citylist.append((item[1],  item[2]))
+            self.citylist.append((item[1],  item[2], item[0]))
 
     #创建一个城市的随机访问路径 --->个体
     def create_routes(self, citylist):
@@ -43,13 +43,11 @@ class TSPProblem:
             population.append(self.create_routes(citylist))
         return population
 
-    def read_city_file(self, citylist, filename):
-        __raw_data = Parser(filename).data
-        map_size = len(__raw_data['map'])
-        # cities_table[<city_index>] = <coordinate of city>
-        for item in __raw_data['map']:
-            citylist.append((item[1],  item[2]))
-
+    #得到输出结果文件名
+    def result_file_name(self, gen):
+        type = os.path.splitext(os.path.basename(self.filename))[0]
+        result_file_name = 'results/' + type + '-' + self.alg + '-' + str(gen) + '.txt'
+        return result_file_name
 
     #繁衍
     def multiply_of_each_generation(self, generation, population, elite_size, mutation_rate, checkpoints=None):
@@ -65,22 +63,9 @@ class TSPProblem:
             best = population.get_best()
             best.plotting(2)
             print("Gen " + str(generation) + " Distance = %.3f" % min_dis)
-            type = os.path.splitext(os.path.basename(self.filename))[0]
-            best.output_city_path(type, self.alg, generation)
+            filename = self.result_file_name(generation)
+            best.output_city_path(filename)
         return population
-
-    # #繁衍最后一代
-    # def multiply_of_last_generation(self, generation, population, elite_size, mutation_rate, checkpoints=None):
-    #     # population = multiply(population, elite_size, mutation_rate)
-    #     population = population.multiply(elite_size, mutation_rate)
-    #     min_dis = population.min_dis()
-    #     print('Gen:', generation,'|| best fit:', min_dis)
-    #     #最后一张绘图停留两秒后消失
-    #     best = population.get_best()
-    #     best.plotting(2)
-    #     print("Final Distance = %.3f" % min_dis)
-    #     type = os.path.splitext(os.path.basename(self.filename))[0]
-    #     best.output_city_path(type)
 
     def GA(self, pop_size, elite_size, mutation_rate, generation, checkpoints=None):
         population = self.initial_population(pop_size, self.citylist)
@@ -89,5 +74,12 @@ class TSPProblem:
         # self.multiply_of_last_generation(generation, population, elite_size, mutation_rate)
 
 if __name__ == '__main__':
-    prob = TSPProblem('data/eil51.tsp', 'alg1')
-    prob.GA(POP_SIZE, ELITE_SIZE, MUTATE_RATE, N_GENERATIONS, CHECKPOINTS)
+    for file in FILES:
+        prob = TSPProblem(file, 'alg1')
+        print(file + ' loaded')
+        result_filename = prob.result_file_name(CHECKPOINTS[-1])
+        if not os.path.exists(result_filename):
+            print('Working with: ' + file)
+            prob.GA(POP_SIZE, ELITE_SIZE, MUTATE_RATE, N_GENERATIONS, CHECKPOINTS)
+        else:
+            print('Found: ' + result_filename + ', skip this instance')

@@ -107,11 +107,11 @@ class Individual:
         plt.pause(show_time)
 
     #输出结果到文件中
-    def output_city_path(self, type, alg, gen):
-        output = open('results/' + type + '-' + alg + '-' + str(gen) + '.txt' ,'w')
+    def output_city_path(self, filename):
+        output = open(filename ,'w')
         output.write('----------Distance----------\n\n')
         output.write(str(self.total_distance()) + '\n\n')
         output.write('---------Circle Path--------\n\n')
         for i in self.dna:
-            output.write(str(i) + '\n')
-        output.write(str(self.dna[0]))
+            output.write(str(i[2]) + '\n')
+        output.write(str(-1))
