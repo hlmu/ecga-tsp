@@ -3,6 +3,8 @@ Configuration file
 you can add more than one config to test examples.
 """
 from algorihm.GA import GeneticAlgorithm
+from algorihm.GA import GeneticAlgorithmStar
+from algorihm.GA import GeneticAlgorithmFinal
 
 DEFAULT_POP_SIZE = 50      # 每一代个体数
 DEFAULT_ELITE_SIZE = 10      # 保留的精英个体数量
@@ -35,4 +37,17 @@ class Solution:
 solution_set = list()
 
 f_list = ['data/kroA100.tsp', 'data/kroC100.tsp', 'data/kroD100.tsp']
-solution_set.append(Solution(files=f_list))
+solution_set.append(Solution(files=f_list, pop_size=10, alg=GeneticAlgorithm()))
+solution_set.append(Solution(files=f_list, pop_size=20, alg=GeneticAlgorithm()))
+solution_set.append(Solution(files=f_list, pop_size=50, alg=GeneticAlgorithm()))
+solution_set.append(Solution(files=f_list, pop_size=100, alg=GeneticAlgorithm()))
+
+solution_set.append(Solution(files=f_list, pop_size=10, alg=GeneticAlgorithmStar()))
+solution_set.append(Solution(files=f_list, pop_size=20, alg=GeneticAlgorithmStar()))
+solution_set.append(Solution(files=f_list, pop_size=50, alg=GeneticAlgorithmStar()))
+solution_set.append(Solution(files=f_list, pop_size=100, alg=GeneticAlgorithmStar()))
+
+solution_set.append(Solution(files=f_list, pop_size=10, alg=GeneticAlgorithmFinal()))
+solution_set.append(Solution(files=f_list, pop_size=20, alg=GeneticAlgorithmFinal()))
+solution_set.append(Solution(files=f_list, pop_size=50, alg=GeneticAlgorithmFinal()))
+solution_set.append(Solution(files=f_list, pop_size=100, alg=GeneticAlgorithmFinal()))
