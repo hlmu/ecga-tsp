@@ -72,7 +72,7 @@ class TSPProblem:
     def GA(self, pop_size, elite_size, mutation_rate, generation, checkpoints=None):
         population = self.initial_population(pop_size, self.citylist)
         type = os.path.splitext(os.path.basename(self.filename))[0]
-        logfile = 'logs/' + type + '-' + self.alg.name + '-' + str(pop_size) + '.txt'
+        logfile = 'logs/' + type + '-' + self.alg.name + '-' + str(pop_size) + '.log'
         logging.basicConfig(filename=logfile, filemode='w', level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
         logging.info('Progress started, population size: {}, elite size: {}, mutation rate: {}, total generation: {}\n'
                      .format(pop_size, elite_size, mutation_rate, generation))
