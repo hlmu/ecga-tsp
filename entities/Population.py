@@ -24,7 +24,7 @@ class Population:
     def append(self, individual):
         self.__population.append(individual)
 
-    #繁衍：父代种群 => 排序 -> 选择 -> 交配池 -> 交叉 -> 变异 =>子代种群
+    # 繁衍：父代种群 => 排序 -> 选择 -> 交配池 -> 交叉 -> 变异 =>子代种群
     def multiply(self, elite_size, mutation_rate):
         rank = self.__rank_routes()
         select = self.__select_routes(rank, elite_size)
@@ -34,14 +34,14 @@ class Population:
         # next_generation = children.mutate_population(mutation_rate)
         return Population(next_generation)
 
-    #生成种群内每个个体的适应度，并将它们降序排列，个体用在种群中的序号代替
+    # 生成种群内每个个体的适应度，并将它们降序排列，个体用在种群中的序号代替
     def __rank_routes(self):
         fitness_results = {}
         for i in range(0,self.__len__()):
             fitness_results[i] = self.__population[i].fitness()
         return sorted(fitness_results.items(), key = operator.itemgetter(1), reverse = True)
 
-    #筛选个体
+    # 筛选个体
     def __select_routes(self, rank_result, elite_size):
         select_result = []
 

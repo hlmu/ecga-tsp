@@ -16,6 +16,7 @@ class GeneticAlgorithmStar:
         self.name = 'ga2'
         self.mutation_operator = util.MutationOperators.inversion_mutation
 
+
 class GeneticAlgorithmFinal:
     def __init__(self):
         self.name = 'ga3'
