@@ -16,8 +16,9 @@ class Individual:
     This class is immutable
     """
 
-    def __init__(self, route):
+    def __init__(self, route, mutation_operator):
         self.dna = route.copy()
+        self.mutation_operator = mutation_operator
 
     def __len__(self):
         return len(self.dna)
@@ -37,18 +38,11 @@ class Individual:
             p1.append(self.dna[i])
         p2 = [item for item in parent2.dna if item not in p1]
         child = p1 + p2
-        return Individual(child)
+        return Individual(child, self.mutation_operator)
 
     #个体中的每个城市都有概率与其他城市发生顺序交换  ---> 变异
     def mutate(self, mutation_rate):
-        result = Individual(self.dna)
-        for swap1 in range(self.__len__()):
-            if(random.random() < mutation_rate):
-                swap2 = int(random.random() * self.__len__())
-                city1 = result.dna[swap1]
-                city2 = result.dna[swap2]
-                result.dna[swap1] = city2
-                result.dna[swap2] = city1
+        result = self.mutation_operator(self, mutation_rate)
         return result
 
     #勾股定理求两城市间距离
