@@ -10,7 +10,7 @@ DEFAULT_POP_SIZE = 50      # 每一代个体数
 DEFAULT_ELITE_SIZE = 10      # 保留的精英个体数量
 DEFAULT_MUTATE_RATE = 0.002    # 基因变异概率
 DEFAULT_N_GENERATIONS = 20000   # 生成子代数量
-DEFAULT_CHECKPOINTS = [5, 10000, 20000]
+DEFAULT_CHECKPOINTS = [5000, 10000, 20000]
 DEFAULT_FILES = ['data/eil51.tsp', 'data/eil76.tsp', 'data/eil101.tsp', 'data/kroA100.tsp', 'data/kroC100.tsp',
                  'data/kroD100.tsp', 'data/lin105.tsp', 'data/pcb442.tsp', 'data/pr2392.tsp', 'data/st70.tsp']
 DEFAULT_END = 20000

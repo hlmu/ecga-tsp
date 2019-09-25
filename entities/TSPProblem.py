@@ -12,6 +12,7 @@ from util.Parser import Parser
 from entities.Individual import Individual
 from entities.Population import Population
 import os
+import logging
 City = complex # create alias for the complex
 
 class TSPProblem:
@@ -54,6 +55,8 @@ class TSPProblem:
         population = population.multiply(elite_size, mutation_rate)
         min_dis = population.min_dis()
         print('Gen:', generation,'|| best fit:', min_dis)
+        if generation % 100 == 0:
+            logging.info('Gen: '+ str(generation)+' || best fit: '+ str(min_dis))
         #注释下一行可以只绘制最终结果的图像
         # plotting(population[0], best, 0.01)
 
@@ -68,6 +71,11 @@ class TSPProblem:
 
     def GA(self, pop_size, elite_size, mutation_rate, generation, checkpoints=None):
         population = self.initial_population(pop_size, self.citylist)
+        type = os.path.splitext(os.path.basename(self.filename))[0]
+        logfile = 'logs/' + type + '-' + self.alg.name + '-' + str(pop_size) + '.txt'
+        logging.basicConfig(filename=logfile, level=logging.INFO)
+        logging.info('Progress started, population size: {}, elite size: {}, mutation rate: {}, total generation: {}\n'
+                     .format(pop_size, elite_size, mutation_rate, generation))
         for gen in range(1, generation+1):
             population = self.multiply_of_each_generation(gen, population, elite_size, mutation_rate, pop_size,checkpoints)
         # self.multiply_of_last_generation(generation, population, elite_size, mutation_rate)
