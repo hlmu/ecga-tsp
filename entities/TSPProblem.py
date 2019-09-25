@@ -6,12 +6,11 @@ Write a class TSPProblem which represents the TSP problem. Your class should ena
 from the files of the symmetric traveling salesperson problem of the TSPlib.
 """
 
-from Parser import Parser
 import random
-from Parser import Parser
+from util.Parser import Parser
 from config import *
-from Individual import Individual
-from Population import Population
+from entities.Individual import Individual
+from entities.Population import Population
 import os
 City = complex # create alias for the complex
 
@@ -73,6 +72,7 @@ class TSPProblem:
             population = self.multiply_of_each_generation(gen, population, elite_size, mutation_rate, checkpoints)
         # self.multiply_of_last_generation(generation, population, elite_size, mutation_rate)
 
+# 此处可以用于编辑算法的时候测试， 批量测试配置config后运行Main.py
 if __name__ == '__main__':
     for file in FILES:
         prob = TSPProblem(file, 'alg1')
