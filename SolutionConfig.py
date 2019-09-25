@@ -19,7 +19,7 @@ class Solution:
     def __init__(self, pop_size=DEFAULT_POP_SIZE, eli_size=DEFAULT_ELITE_SIZE,
                  mutate_rate=DEFAULT_MUTATE_RATE, n_generations=DEFAULT_N_GENERATIONS,
                  check_points=DEFAULT_CHECKPOINTS, files=DEFAULT_FILES, end=DEFAULT_END,
-                 alg = DEFAULT_ALG
+                 alg=DEFAULT_ALG
                  ):
         self.pop_size = pop_size
         self.eli_size = eli_size
@@ -33,5 +33,6 @@ class Solution:
 
 
 solution_set = list()
+
 f_list = ['data/kroA100.tsp', 'data/kroC100.tsp', 'data/kroD100.tsp']
 solution_set.append(Solution(files=f_list))

@@ -7,7 +7,7 @@ from the files of the symmetric traveling salesperson problem of the TSPlib.
 """
 
 import random
-from util.Parser import Parser
+import util.Parser
 from config import *
 from entities.Individual import Individual
 from entities.Population import Population
@@ -24,7 +24,7 @@ class TSPProblem:
         self.filename = filename
         self.citylist = []
         self.alg = alg
-        __raw_data = Parser(filename).data
+        __raw_data = util.Parser.Parser(filename).data
         # self.citylist  = <x_coordinate, y_coordinate, city_index>
         for item in __raw_data['map']:
             self.citylist.append((item[1],  item[2], item[0]))
