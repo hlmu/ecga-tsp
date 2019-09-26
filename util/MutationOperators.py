@@ -4,7 +4,7 @@ from entities.Individual import Individual
 
 # 个体中的每个城市都有概率与其他城市发生顺序交换  ---> Swap Mutation
 def swap_mutation(individual, mutation_rate):
-    result = Individual(individual.dna, individual.mutation_operator)
+    result = Individual(individual.dna, individual.mutation_operator, individual.crossover_operator)
     for swap1 in range(individual.__len__()):
         if random.random() < mutation_rate:
             swap2 = int(random.random() * individual.__len__())
@@ -17,7 +17,7 @@ def swap_mutation(individual, mutation_rate):
 
 # 个体中的每个城市都有概率与其他城市发生顺序交换  ---> Insert Mutation
 def insert_mutation(individual, mutation_rate):
-    result = Individual(individual.dna, individual.mutation_operator)
+    result = Individual(individual.dna, individual.mutation_operator, individual.crossover_operator)
     for insert1 in range(individual.__len__()):
         if random.random() < mutation_rate:
             insert2 = int(random.random() * individual.__len__())
@@ -38,7 +38,7 @@ def insert_mutation(individual, mutation_rate):
 
 # 个体中的每个城市都有概率与其他城市发生顺序交换  ---> Inversion Mutation
 def inversion_mutation(individual, mutation_rate):
-    result = Individual(individual.dna, individual.mutation_operator)
+    result = Individual(individual.dna, individual.mutation_operator, individual.crossover_operator)
     for swap1 in range(individual.__len__()):
         if random.random() < mutation_rate:
             swap2 = int(random.random() * individual.__len__())
@@ -51,7 +51,7 @@ def inversion_mutation(individual, mutation_rate):
 
 # 个体中的每个城市都有概率与其他城市发生顺序交换  ---> Scramble Mutation
 def scramble_mutation(individual, mutation_rate):
-    result = Individual(individual.dna, individual.mutation_operator)
+    result = Individual(individual.dna, individual.mutation_operator, individual.crossover_operator)
     for swap1 in range(individual.__len__()):
         if random.random() < mutation_rate:
             swap2 = int(random.random() * individual.__len__())

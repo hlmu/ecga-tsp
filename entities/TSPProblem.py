@@ -34,7 +34,7 @@ class TSPProblem:
         population = Population(self.alg.selection_strategy)
         for i in range(0, pop_size):
             population.append(
-                Individual(random.sample(self.city_list, len(self.city_list)), self.alg.mutation_operator)
+                Individual(random.sample(self.city_list, len(self.city_list)), self.alg.mutation_operator, self.alg.crossover_operator)
             )
         return population
 

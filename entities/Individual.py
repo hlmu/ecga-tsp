@@ -16,29 +16,32 @@ class Individual:
     This class is immutable
     """
 
-    def __init__(self, route, mutation_operator):
+    def __init__(self, route, mutation_operator, crossover_operator):
         self.dna = route.copy()
         self.mutation_operator = mutation_operator
+        self.crossover_operator = crossover_operator
 
     def __len__(self):
         return len(self.dna)
 
     #两个个体间通过交叉产生后代
     def crossover(self, parent2):
-        child = []
-        p1 = []
-        P2 = []
-
-        #从第一个个体中随机选择一段城市，拼接第二个个体中所有不重复的城市，生成的新的个体
-        geneA = int(random.random() * len(self.dna))
-        geneB = int(random.random() * len(parent2.dna))
-        start = min(geneA, geneB)
-        end = max(geneA, geneB)
-        for i in range(start, end):
-            p1.append(self.dna[i])
-        p2 = [item for item in parent2.dna if item not in p1]
-        child = p1 + p2
-        return Individual(child, self.mutation_operator)
+        child = self.crossover_operator(self, parent2)
+        return child
+        # child = []
+        # p1 = []
+        # P2 = []
+        #
+        # #从第一个个体中随机选择一段城市，拼接第二个个体中所有不重复的城市，生成的新的个体
+        # geneA = int(random.random() * len(self.dna))
+        # geneB = int(random.random() * len(parent2.dna))
+        # start = min(geneA, geneB)
+        # end = max(geneA, geneB)
+        # for i in range(start, end):
+        #     p1.append(self.dna[i])
+        # p2 = [item for item in parent2.dna if item not in p1]
+        # child = p1 + p2
+        # return Individual(child, self.mutation_operator, self.crossover_operator)
 
     #个体中的每个城市都有概率与其他城市发生顺序交换  ---> 变异
     def mutate(self, mutation_rate):
