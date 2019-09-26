@@ -2,9 +2,9 @@
 Configuration file
 you can add more than one config to test examples.
 """
-from algorihm.GA import GeneticAlgorithm
-from algorihm.GA import GeneticAlgorithmStar
-from algorihm.GA import GeneticAlgorithmFinal
+from algorithm.GA import GeneticAlgorithm
+from algorithm.GA import GeneticAlgorithmStar
+from algorithm.GA import GeneticAlgorithmFinal
 
 DEFAULT_POP_SIZE = 50      # 每一代个体数
 DEFAULT_ELITE_SIZE = 10      # 保留的精英个体数量
