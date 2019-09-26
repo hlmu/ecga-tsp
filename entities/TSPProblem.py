@@ -31,7 +31,7 @@ class TSPProblem:
 
     # 创建足够多的个体 --->初始种群
     def initial_population(self, pop_size):
-        population = Population()
+        population = Population(self.alg.selection_strategy)
         for i in range(0, pop_size):
             population.append(
                 Individual(random.sample(self.city_list, len(self.city_list)), self.alg.mutation_operator)
@@ -47,7 +47,7 @@ class TSPProblem:
     # 繁衍
     def multiply_of_each_generation(self, generation, population, elite_size, mutation_rate, pop_size, checkpoints=None):
         # population = multiply(population, elite_size, mutation_rate)
-        population = population.multiply(elite_size, mutation_rate)
+        population = population.multiply(mutation_rate, elite_size)
         min_dis = population.min_dis()
         print('Gen:', generation,'|| best fit:', min_dis)
         if generation % 100 == 0:
