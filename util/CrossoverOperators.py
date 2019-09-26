@@ -24,12 +24,9 @@ def order_crossover(parent1, parent2):
     child = p2[len(parent2.dna) - end:] + p1 + p2[:len(parent2.dna) - end]
     return Individual(child, parent1.mutation_operator, parent1.crossover_operator)
 
-
 # 两个个体间通过交叉产生后代  ---> PBX Crossover
 def PBX_crossover(parent1, parent2):
     child = []
-    p1 = []
-    p2 = []
 
     # 从第一个个体中随机选择一段城市，拼接第二个个体中所有不重复的城市，生成的新的个体
     geneA = int(random.random() * len(parent1.dna))
@@ -37,20 +34,34 @@ def PBX_crossover(parent1, parent2):
     start = min(geneA, geneB)
     end = max(geneA, geneB)
     dic = {}
+    child = parent1.dna
+    q1 = []
+    q2 = []
+    nums = []
     for i in range(start, end + 1):
-        p1.append(parent2.dna[i])
         dic[parent2.dna[i]] = parent1.dna[i]
+        q1.append(parent1.dna[i])
+        q2.append(parent2.dna[i])
+        nums.append(i)
 
-    for i in range(end + 1, start + len(parent1.dna) + 1):
-        cou = i
-        if cou >= len(parent1.dna):
-            cou -= len(parent1.dna)
-        if parent1.dna[cou] in p1:
-            k = dic[parent1.dna[cou]]
-            while k in p1:
+    for i in range(len(q2)):
+        if q2[i] not in q1:
+            k = q2[i]
+            while k in q2:
+                if k is dic[k]:
+                    break
                 k = dic[k]
-            p2.append(k)
-    child = p2[len(parent2.dna) - end:] + p1 + p2[:len(parent2.dna) - end]
+            flag = True
+            if k in dic.keys() and k is dic[k]:
+                flag = False
+            if k in parent2.dna and flag is True:
+                t = parent2.dna.index(k)
+                child[t] = q2[i]
+                nums.append(i)
+    for i in range(len(child)):
+        if i not in nums:
+            child[i] = parent2.dna[i]
+    print(len(child))
     return Individual(child, parent1.mutation_operator, parent1.crossover_operator)
 
 
@@ -73,7 +84,7 @@ def cycle_crossover(parent1, parent2):
         k = dic1[k]
     for i in range(len(parent1.dna)):
         if parent1.dna[i] in dic.keys():
-            child += parent1.dna[i]
+            child.append(parent1.dna[i])
         else:
-            child += parent2.dna[i]
+            child.append(parent2.dna[i])
     return Individual(child, parent1.mutation_operator, parent1.crossover_operator)

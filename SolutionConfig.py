@@ -45,7 +45,7 @@ f_list = ['data/kroA100.tsp', 'data/kroC100.tsp', 'data/kroD100.tsp']
 # solution_set.append(Solution(files=f_list, pop_size=100, alg=GeneticAlgorithm()))
 
 # solution_set.append(Solution(files=f_list, pop_size=10, alg=GeneticAlgorithmStar()))
-# solution_set.append(Solution(files=f_list, pop_size=20, alg=GeneticAlgorithmStar()))
+solution_set.append(Solution(files=f_list, pop_size=20, alg=GeneticAlgorithmStar()))
 # solution_set.append(Solution(files=f_list, pop_size=50, alg=GeneticAlgorithmStar()))
 # solution_set.append(Solution(files=f_list, pop_size=100, alg=GeneticAlgorithmStar()))
 
