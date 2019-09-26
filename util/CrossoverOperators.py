@@ -47,9 +47,11 @@ def PBX_crossover(parent1, parent2):
     for i in range(len(q2)):
         if q2[i] not in q1:
             k = q2[i]
+            dict = {}
             while k in q2:
-                if k is dic[k]:
+                if k is dic[k] or k in dict.keys():
                     break
+                dict[k] = dic[k]
                 k = dic[k]
             flag = True
             if k in dic.keys() and k is dic[k]:
@@ -61,7 +63,6 @@ def PBX_crossover(parent1, parent2):
     for i in range(len(child)):
         if i not in nums:
             child[i] = parent2.dna[i]
-    print(len(child))
     return Individual(child, parent1.mutation_operator, parent1.crossover_operator)
 
 
@@ -80,6 +81,8 @@ def cycle_crossover(parent1, parent2):
     dic[parent1.dna[geneA]] = parent2.dna[geneA]
     k = parent2.dna[geneA]
     while k != parent1.dna[geneA]:
+        if k is dic1[k]:
+            break
         dic[k] = dic1[k]
         k = dic1[k]
     for i in range(len(parent1.dna)):
@@ -88,3 +91,4 @@ def cycle_crossover(parent1, parent2):
         else:
             child.append(parent2.dna[i])
     return Individual(child, parent1.mutation_operator, parent1.crossover_operator)
+

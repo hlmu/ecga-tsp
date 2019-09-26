@@ -10,8 +10,8 @@ DEFAULT_POP_SIZE = 50      # 每一代个体数
 DEFAULT_ELITE_SIZE = 10      # 保留的精英个体数量
 DEFAULT_TOURNAMENT_SIZE = 10      # 锦标赛选择中一次参与比较的个体数
 DEFAULT_MUTATE_RATE = 0.002    # 基因变异概率
-DEFAULT_N_GENERATIONS = 5 # 生成子代数量
-DEFAULT_CHECKPOINTS = [2, 10000, 20000]
+DEFAULT_N_GENERATIONS = 20000 # 生成子代数量
+DEFAULT_CHECKPOINTS = [5000, 10000, 20000]
 DEFAULT_FILES = ['data/eil51.tsp', 'data/eil76.tsp', 'data/eil101.tsp', 'data/kroA100.tsp', 'data/kroC100.tsp',
                  'data/kroD100.tsp', 'data/lin105.tsp', 'data/pcb442.tsp', 'data/pr2392.tsp', 'data/st70.tsp']
 DEFAULT_END = 20000
@@ -39,17 +39,17 @@ class Solution:
 solution_set = list()
 
 f_list = ['data/kroA100.tsp', 'data/kroC100.tsp', 'data/kroD100.tsp']
-# solution_set.append(Solution(files=f_list, pop_size=10, alg=GeneticAlgorithm()))
-# solution_set.append(Solution(files=f_list, pop_size=20, alg=GeneticAlgorithm()))
-# solution_set.append(Solution(files=f_list, pop_size=50, alg=GeneticAlgorithm()))
-# solution_set.append(Solution(files=f_list, pop_size=100, alg=GeneticAlgorithm()))
+solution_set.append(Solution(files=f_list, pop_size=10, alg=GeneticAlgorithm()))
+solution_set.append(Solution(files=f_list, pop_size=20, alg=GeneticAlgorithm()))
+solution_set.append(Solution(files=f_list, pop_size=50, alg=GeneticAlgorithm()))
+solution_set.append(Solution(files=f_list, pop_size=100, alg=GeneticAlgorithm()))
 
-# solution_set.append(Solution(files=f_list, pop_size=10, alg=GeneticAlgorithmStar()))
+solution_set.append(Solution(files=f_list, pop_size=10, alg=GeneticAlgorithmStar()))
 solution_set.append(Solution(files=f_list, pop_size=20, alg=GeneticAlgorithmStar()))
-# solution_set.append(Solution(files=f_list, pop_size=50, alg=GeneticAlgorithmStar()))
-# solution_set.append(Solution(files=f_list, pop_size=100, alg=GeneticAlgorithmStar()))
+solution_set.append(Solution(files=f_list, pop_size=50, alg=GeneticAlgorithmStar()))
+solution_set.append(Solution(files=f_list, pop_size=100, alg=GeneticAlgorithmStar()))
 
-# solution_set.append(Solution(files=f_list, pop_size=10, alg=GeneticAlgorithmFinal()))
+solution_set.append(Solution(files=f_list, pop_size=10, alg=GeneticAlgorithmFinal()))
 solution_set.append(Solution(files=f_list, pop_size=20, alg=GeneticAlgorithmFinal()))
-# solution_set.append(Solution(files=f_list, pop_size=50, alg=GeneticAlgorithmFinal()))
-# solution_set.append(Solution(files=f_list, pop_size=100, alg=GeneticAlgorithmFinal()))
+solution_set.append(Solution(files=f_list, pop_size=50, alg=GeneticAlgorithmFinal()))
+solution_set.append(Solution(files=f_list, pop_size=100, alg=GeneticAlgorithmFinal()))
