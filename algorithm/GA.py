@@ -18,7 +18,8 @@ class GeneticAlgorithmStar:
         self.name = 'ga2'
         self.mutation_operator = util.MutationOperators.inversion_mutation
         # TODO new selection_strategy & crossover operator
-        self.selection_strategy = util.SelectionStrategy.elitism_selection
+        self.selection_strategy = util.SelectionStrategy.fitness_proportional
+        # self.selection_strategy = util.SelectionStrategy.elitism_selection
         self.crossover_operator = util.CrossoverOperators.PBX_crossover
 
 
