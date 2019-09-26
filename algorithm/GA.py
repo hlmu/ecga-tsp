@@ -19,7 +19,7 @@ class GeneticAlgorithmStar:
         self.mutation_operator = util.MutationOperators.inversion_mutation
         # TODO new selection_strategy & crossover operator
         self.selection_strategy = util.SelectionStrategy.elitism_selection
-        self.crossover_operator = util.CrossoverOperators.order_crossover
+        self.crossover_operator = util.CrossoverOperators.PBX_crossover
 
 
 class GeneticAlgorithmFinal:
@@ -28,4 +28,4 @@ class GeneticAlgorithmFinal:
         self.mutation_operator = util.MutationOperators.scramble_mutation
         # TODO new selection_strategy & crossover operator
         self.selection_strategy = util.SelectionStrategy.elitism_selection
-        self.crossover_operator = util.CrossoverOperators.order_crossover
+        self.crossover_operator = util.CrossoverOperators.cycle_crossover
