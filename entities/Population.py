@@ -26,8 +26,8 @@ class Population:
         self.__population.append(individual)
 
     # 繁衍：父代种群 => 排序 -> 选择 -> 交配池 -> 交叉 -> 变异 =>子代种群
-    def multiply(self, mutation_rate, elite_size=0):
-        next_generation = self.selection_strategy(self, mutation_rate, elite_size)
+    def multiply(self, mutation_rate, elite_size=0, tournament_size=0):
+        next_generation = self.selection_strategy(self, mutation_rate, elite_size, tournament_size)
         return next_generation
 
     # 生成种群内每个个体的适应度，并将它们降序排列，个体用在种群中的序号代替

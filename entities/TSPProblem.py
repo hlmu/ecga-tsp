@@ -45,9 +45,9 @@ class TSPProblem:
         return result_file_name
 
     # 繁衍
-    def multiply_of_each_generation(self, generation, population, elite_size, mutation_rate, pop_size, checkpoints=None):
+    def multiply_of_each_generation(self, generation, population, elite_size, tournament_size, mutation_rate, pop_size, checkpoints=None):
         # population = multiply(population, elite_size, mutation_rate)
-        population = population.multiply(mutation_rate, elite_size)
+        population = population.multiply(mutation_rate, elite_size, tournament_size)
         min_dis = population.min_dis()
         print('Gen:', generation,'|| best fit:', min_dis)
         if generation % 100 == 0:
@@ -64,7 +64,7 @@ class TSPProblem:
             best.output_city_path(filename)
         return population
 
-    def GA(self, pop_size, elite_size, mutation_rate, generation, checkpoints=None):
+    def GA(self, pop_size, elite_size, tournament_size, mutation_rate, generation, checkpoints=None):
         population = self.initial_population(pop_size)
         f_type = os.path.splitext(os.path.basename(self.filename))[0]
         logfile = 'logs/' + f_type + '-' + self.alg.name + '-' + str(pop_size) + '.log'
@@ -72,7 +72,7 @@ class TSPProblem:
         logging.info('Progress started, population size: {}, elite size: {}, mutation rate: {}, total generation: {}\n'
                      .format(pop_size, elite_size, mutation_rate, generation))
         for gen in range(1, generation+1):
-            population = self.multiply_of_each_generation(gen, population, elite_size, mutation_rate, pop_size,checkpoints)
+            population = self.multiply_of_each_generation(gen, population, elite_size, tournament_size, mutation_rate, pop_size,checkpoints)
         # self.multiply_of_last_generation(generation, population, elite_size, mutation_rate)
 
 # # 此处可以用于编辑算法的时候测试， 批量测试配置config后运行Main.py

@@ -4,8 +4,8 @@ import numpy as np
 import random
 from entities.Population import Population
 
-# 根据fitness作为被选中的概率，进行轮盘选择；elite_size在这里无效
-def fitness_proportional(current_generation, mutation_rate, elite_size):
+# 根据fitness作为被选中的概率，进行轮盘选择；elite_size和tournament_size在这里无效
+def fitness_proportional(current_generation, mutation_rate, elite_size=0, tournament_size=0):
     rank_result = current_generation.rank_routes()
 
     select = []
@@ -30,6 +30,39 @@ def fitness_proportional(current_generation, mutation_rate, elite_size):
 
     matingpool = current_generation.mating_pool(select)
 
+    children = []
+    length = len(matingpool)
+    pool = random.sample(matingpool, len(matingpool))
+
+    for i in range(0, length):
+        child = pool[i].crossover(pool[len(matingpool)-i-1])
+        children.append(child)
+
+    #种群中所有个体都有机会变异
+    mutate_population = []
+
+    for route in range(0, len(children)):
+        # mutate_route = mutate(population[route], mutation_rate)
+        mutate_route = children[route].mutate(mutation_rate)
+        mutate_population.append(mutate_route)
+    return Population(current_generation.selection_strategy, mutate_population)
+
+# 根据fitness作为被选中的概率，进行轮盘选择；elite_size在这里无效
+def tournament_selection(current_generation, mutation_rate, elite_size=0, tournament_size=0):
+    rank_result = current_generation.rank_routes()
+
+    select = []
+
+    for i in range(0, len(rank_result)):
+        best = None
+        for j in range(tournament_size):
+            ind = random.choice(rank_result)
+            if best == None or ind[1] > best[1]:
+                best = ind
+        select.append(best[0])
+
+    matingpool = current_generation.mating_pool(select)
+
     #在整个种群上，先保留精英个体，剩下的个体两两交叉直到生成足够的数量
     children = []
     length = len(matingpool)
@@ -48,10 +81,8 @@ def fitness_proportional(current_generation, mutation_rate, elite_size):
         mutate_population.append(mutate_route)
     return Population(current_generation.selection_strategy, mutate_population)
 
-
-
 # 精英选择
-def elitism_selection(current_generation, mutation_rate, elite_size):
+def elitism_selection(current_generation, mutation_rate, elite_size=0, tournament_size=0):
     rank_result = current_generation.rank_routes()
 
     select = []
